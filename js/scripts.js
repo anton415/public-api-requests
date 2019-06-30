@@ -43,9 +43,9 @@ function createAndAppendCardToGallery(user, container) {
     const $modalEmail = createModalEmail(user, $modalInfoContainer);
     const $modalCity = createModalCity(user, $modalInfoContainer);
     const $modalHr = createModalHr($modalInfoContainer);
+    const $modalPhoneNumber = createModalPhoneNumber(user, $modalInfoContainer);
     const $modalLocation = createModalLocation(user, $modalInfoContainer);
     const $modalBirthday = createModalBirthday(user, $modalInfoContainer);
-
   });
 
 	container.append($card);
@@ -201,6 +201,16 @@ function createModalHr(container) {
   return $modalHr;
 }
 
+// Add phone number.
+function createModalPhoneNumber(user, container) {
+  const $modalPhoneNumber = $('<p></p>', {
+    class: 'modal-text',
+    text: user.phone
+  });
+  $modalPhoneNumber.appendTo(container);
+  return $modalPhoneNumber;
+}
+
 // Create long location.
 function createModalLocation(user, container) {
   const $modalLocation = $('<p></p>', {
@@ -215,7 +225,7 @@ function createModalLocation(user, container) {
 function createModalBirthday(user, container) {
   const $modalBirthday = $('<p></p>', {
     class: 'modal-text',
-    text: user.dob.date.substring(8,10) + '/' + user.dob.date.substring(5,7) + '/' + user.dob.date.substring(0,4)
+    text: 'Birthday: ' + user.dob.date.substring(8,10) + '/' + user.dob.date.substring(5,7) + '/' + user.dob.date.substring(0,4)
   });
   $modalBirthday.appendTo(container);
   return $modalBirthday;
