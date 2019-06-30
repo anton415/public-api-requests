@@ -94,6 +94,7 @@ function createModalWindow() {
     const $modalContainer = createModalContainer();
     const $modal = createModal($modalContainer);
     const $button = createButton($modal);
+    const $button = createModalInfoContainer($modal);
   });
 }
 
@@ -113,13 +114,27 @@ function createModal(container) {
   return $modal;
 }
 
-//<button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+// Create remove button.
 function createButton(container) {
 	const $button = $('<button><strong>X</strong></button>', {
 		class: 'modal-close-btn',
     id: 'modal-close-btn',
     type: 'button'
 	});
+
 	$button.appendTo(container);
+
+  $button.unbind().click(() => {
+    $('.modal-container').remove();
+  });
+
 	return $button;
+}
+
+// Create modal info container and append to modal.
+function createModalInfoContainer(container) {
+  const $modalInfoContainer = document.createElement('div');
+  $modalInfoContainer.className = 'modal-info-container';
+  container.append($modalInfoContainer);
+  return $modalInfoContainer;
 }
