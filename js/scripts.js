@@ -40,6 +40,7 @@ function createAndAppendCardToGallery(user, container) {
     const $modalInfoContainer = createModalInfoContainer($modal);
     const $imgModal = createModalImg(user, $modalInfoContainer);
     const $modalName = createModalName(user, $modalInfoContainer);
+    const $modalEmail = createModalEmail(user, $modalInfoContainer);
   });
 
 	container.append($card);
@@ -166,4 +167,14 @@ function createModalName(user, container) {
   });
   $modalName.appendTo(container);
   return $modalName;
+}
+
+// Create email for modal window.
+function createModalEmail(user, container) {
+  const $modalEmail = $('<p></p>', {
+    class: 'modal-text',
+    text: user.email
+  });
+  $modalEmail.appendTo(container);
+  return $modalEmail;
 }
