@@ -41,6 +41,7 @@ function createAndAppendCardToGallery(user, container) {
     const $imgModal = createModalImg(user, $modalInfoContainer);
     const $modalName = createModalName(user, $modalInfoContainer);
     const $modalEmail = createModalEmail(user, $modalInfoContainer);
+    const $modalCity = createModalCity(user, $modalInfoContainer);
   });
 
 	container.append($card);
@@ -177,4 +178,14 @@ function createModalEmail(user, container) {
   });
   $modalEmail.appendTo(container);
   return $modalEmail;
+}
+
+// Create city for modal window.
+function createModalCity(user, container) {
+  const $modalCity = $('<p></p>', {
+    class: 'modal-text cap',
+    text: user.location.city
+  });
+  $modalCity.appendTo(container);
+  return $modalCity;
 }
