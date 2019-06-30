@@ -1,9 +1,11 @@
+/************* Get and display 12 random users *************/
 $.ajax({
   url: 'https://randomuser.me/api/?results=12&?inc=picture,name,email,location',
   dataType: 'json',
   success: function(data) {
   	data.results.forEach((user) => {
   		displayData(user);
+      createModalWindow();
   	});
   }
 });
@@ -55,7 +57,7 @@ function createAndAppendCardInfoContainerToCard(container) {
 	return $cardInfoContainer;
 }
 
-// Create and append Card name to Card info container.	
+// Create and append Card name to Card info container.
 function createAndAppendCardNameToCardInfoContainer(user, container) {
 	const $cardName = $('<h3></h3>', {
 		class: 'card-name cap',
@@ -65,7 +67,7 @@ function createAndAppendCardNameToCardInfoContainer(user, container) {
 	return $cardName;
 }
 
-// Create and append Email to Card info container.	
+// Create and append Email to Card info container.
 function createAndAppendEmailToCardInfoContainer(user, container) {
 	const $email = $('<p>', {
 		class: 'card-text',
@@ -75,7 +77,7 @@ function createAndAppendEmailToCardInfoContainer(user, container) {
 	return $email;
 }
 
-// Create and append City to Card info container.	
+// Create and append City to Card info container.
 function createAndAppendCityToCardInfoContainer(user, container) {
 	const $city = $('<p>', {
 		class: 'card-text cap',
@@ -85,4 +87,39 @@ function createAndAppendCityToCardInfoContainer(user, container) {
 	return $city;
 }
 
+/************* Create a modal window *************/
+function createModalWindow() {
+  const $card = $('.card');
+  $card.unbind().click(() => {
+    const $modalContainer = createModalContainer();
+    const $modal = createModal($modalContainer);
+    const $button = createButton($modal);
+  });
+}
 
+// Create modal container and append to body.
+function createModalContainer() {
+  const $modalContainer = document.createElement('div');
+  $modalContainer.className = 'modal-container';
+  $('body').append($modalContainer);
+  return $modalContainer;
+}
+
+// Create modal and append to modal container.
+function createModal(container) {
+  const $modal = document.createElement('div');
+  $modal.className = 'modal';
+  container.append($modal);
+  return $modal;
+}
+
+//<button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+function createButton(container) {
+	const $button = $('<button><strong>X</strong></button>', {
+		class: 'modal-close-btn',
+    id: 'modal-close-btn',
+    type: 'button'
+	});
+	$button.appendTo(container);
+	return $button;
+}
