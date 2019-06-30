@@ -1,11 +1,12 @@
+
 /************* Get and display 12 random users *************/
 $.ajax({
-  url: 'https://randomuser.me/api/?results=12&?inc=picture,name,email,location',
+  url: 'https://randomuser.me/api/?results=12',
   dataType: 'json',
   success: function(data) {
-  	data.results.forEach((user) => {
+    const users = data.results;
+  	users.forEach((user) => {
   		displayData(user);
-      createModalWindow();
   	});
   }
 });
@@ -13,19 +14,33 @@ $.ajax({
 // Display data.
 function displayData(user) {
 	const $gallery = $('#gallery');
-	const $card = createAndAppendCardToGallery($gallery);
+	const $card = createAndAppendCardToGallery(user, $gallery);
 	const $cardImgContainer = createAndAppendCardImgContainerToCard($card);
 	const $img = createAndAppendCardImgToCardImgContainer(user, $cardImgContainer);
 	const $cardInfoContainer = createAndAppendCardInfoContainerToCard($card);
 	const $cardName = createAndAppendCardNameToCardInfoContainer(user, $cardInfoContainer);
 	const $email = createAndAppendEmailToCardInfoContainer(user, $cardInfoContainer);
 	const $city = createAndAppendCityToCardInfoContainer(user, $cardInfoContainer);
+
 }
 
 // Create and append Card to Gallery.
-function createAndAppendCardToGallery(container) {
-	const $card = document.createElement('div');
-	$card.className = 'card';
+function createAndAppendCardToGallery(user, container) {
+  const $card = $('<div></div>', {
+    class: 'card'
+  });
+
+  $card.appendTo(container);
+
+  /************* Create a modal window *************/
+  $card.unbind().click(() => {
+    const $modalContainer = createModalContainer(user);
+    const $modal = createModal($modalContainer);
+    const $button = createButton($modal);
+    const $modalInfoContainer = createModalInfoContainer($modal);
+    const $imgModal = createModalImg(user, $modalInfoContainer);
+  });
+
 	container.append($card);
 	return $card;
 }
@@ -87,23 +102,15 @@ function createAndAppendCityToCardInfoContainer(user, container) {
 	return $city;
 }
 
-/************* Create a modal window *************/
-function createModalWindow() {
-  const $card = $('.card');
-  $card.unbind().click(() => {
-    const $modalContainer = createModalContainer();
-    const $modal = createModal($modalContainer);
-    const $button = createButton($modal);
-    const $button = createModalInfoContainer($modal);
-  });
-}
-
 // Create modal container and append to body.
-function createModalContainer() {
-  const $modalContainer = document.createElement('div');
-  $modalContainer.className = 'modal-container';
-  $('body').append($modalContainer);
-  return $modalContainer;
+function createModalContainer(user) {
+  const $modalContainer = $('<div></div>', {
+		class: 'modal-container'
+	});
+
+	$modalContainer.appendTo($('body'));
+
+	return $modalContainer;
 }
 
 // Create modal and append to modal container.
@@ -137,4 +144,15 @@ function createModalInfoContainer(container) {
   $modalInfoContainer.className = 'modal-info-container';
   container.append($modalInfoContainer);
   return $modalInfoContainer;
+}
+
+// Create modal img and append to modal info container.
+function createModalImg(user, container) {
+	const $img = $('<img />', {
+		class: 'modal-img',
+		src: user.picture.medium,
+		alt: 'profile picture'
+	});
+	$img.appendTo(container);
+	return $img;
 }
