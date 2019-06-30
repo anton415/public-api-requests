@@ -44,6 +44,7 @@ function createAndAppendCardToGallery(user, container) {
     const $modalCity = createModalCity(user, $modalInfoContainer);
     const $modalHr = createModalHr($modalInfoContainer);
     const $modalLocation = createModalLocation(user, $modalInfoContainer);
+    const $modalBirthday = createModalBirthday(user, $modalInfoContainer);
 
   });
 
@@ -200,13 +201,22 @@ function createModalHr(container) {
   return $modalHr;
 }
 
-//<p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
 // Create long location.
 function createModalLocation(user, container) {
   const $modalLocation = $('<p></p>', {
-    class: 'modal-text cap',
+    class: 'modal-text',
     text: user.location.street + ', ' + user.location.city + ', ' + user.location.city + ', ' + user.location.postcode
   });
   $modalLocation.appendTo(container);
   return $modalLocation;
+}
+
+// Create Birthday.
+function createModalBirthday(user, container) {
+  const $modalBirthday = $('<p></p>', {
+    class: 'modal-text',
+    text: user.dob.date.substring(8,10) + '/' + user.dob.date.substring(5,7) + '/' + user.dob.date.substring(0,4)
+  });
+  $modalBirthday.appendTo(container);
+  return $modalBirthday;
 }
