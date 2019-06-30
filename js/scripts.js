@@ -39,6 +39,7 @@ function createAndAppendCardToGallery(user, container) {
     const $button = createButton($modal);
     const $modalInfoContainer = createModalInfoContainer($modal);
     const $imgModal = createModalImg(user, $modalInfoContainer);
+    const $modalName = createModalName(user, $modalInfoContainer);
   });
 
 	container.append($card);
@@ -155,4 +156,14 @@ function createModalImg(user, container) {
 	});
 	$img.appendTo(container);
 	return $img;
+}
+
+// Create modal name.
+function createModalName(user, container) {
+  const $modalName = $('<h3></h3>', {
+    class: 'modal-name cap',
+    text: user.name.first + ' ' + user.name.last
+  });
+  $modalName.appendTo(container);
+  return $modalName;
 }
