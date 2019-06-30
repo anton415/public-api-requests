@@ -43,6 +43,8 @@ function createAndAppendCardToGallery(user, container) {
     const $modalEmail = createModalEmail(user, $modalInfoContainer);
     const $modalCity = createModalCity(user, $modalInfoContainer);
     const $modalHr = createModalHr($modalInfoContainer);
+    const $modalLocation = createModalLocation(user, $modalInfoContainer);
+
   });
 
 	container.append($card);
@@ -196,4 +198,15 @@ function createModalHr(container) {
   const $modalHr = $('<hr>');
   $modalHr.appendTo(container);
   return $modalHr;
+}
+
+//<p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
+// Create long location.
+function createModalLocation(user, container) {
+  const $modalLocation = $('<p></p>', {
+    class: 'modal-text cap',
+    text: user.location.street + ', ' + user.location.city + ', ' + user.location.city + ', ' + user.location.postcode
+  });
+  $modalLocation.appendTo(container);
+  return $modalLocation;
 }
