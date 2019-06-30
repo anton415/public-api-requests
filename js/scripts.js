@@ -42,6 +42,7 @@ function createAndAppendCardToGallery(user, container) {
     const $modalName = createModalName(user, $modalInfoContainer);
     const $modalEmail = createModalEmail(user, $modalInfoContainer);
     const $modalCity = createModalCity(user, $modalInfoContainer);
+    const $modalHr = createModalHr($modalInfoContainer);
   });
 
 	container.append($card);
@@ -188,4 +189,11 @@ function createModalCity(user, container) {
   });
   $modalCity.appendTo(container);
   return $modalCity;
+}
+
+// Create hr element.
+function createModalHr(container) {
+  const $modalHr = $('<hr>');
+  $modalHr.appendTo(container);
+  return $modalHr;
 }
